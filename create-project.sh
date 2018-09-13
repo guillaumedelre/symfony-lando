@@ -24,20 +24,22 @@ config:
   database: mariadb
 
 services:
-  appserver:
+  app:
     config:
+      php: '7.2'
+      xdebug: true
       server: nginx.conf
 
 tooling:
   sf:
-    service: appserver
+    service: app
     description: Run Symfony commands
     cmd:
       - bin/console
 
 events:
   post-start:
-    appserver: "composer install --working-dir=\$LANDO_MOUNT"
+    app: "composer install --working-dir=\$LANDO_MOUNT"
 
 EOL
 
